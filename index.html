@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro de Tiempo</title>
+</head>
+<body>
+    <h1>Registro de Tiempo</h1>
+    <p>Etiqueta de práctica: <span id="practiceLabel">No definida</span></p>
+    <p>Etiqueta de apelaciones: <span id="appealsLabel">No definida</span></p>
+    <p>Etiqueta de GoLive: <span id="goLiveLabel">No definida</span></p>
+
+    <p>Hora de inicio: <span id="startTime"></span></p>
+    <p>Hora de finalización: <span id="endTime"></span></p>
+    <p>Tiempo transcurrido: <span id="elapsedTime"></span></p>
+
+    <script>
+        // Función para mostrar la hora actual en el formato "hh:mm:ss"
+        function getCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Función para actualizar la hora de inicio y mostrarla
+        function setStartTime() {
+            const startTime = getCurrentTime();
+            document.getElementById("startTime").textContent = startTime;
+        }
+
+        // Función para actualizar la hora de finalización y mostrarla
+        function setEndTime() {
+            const endTime = getCurrentTime();
+            document.getElementById("endTime").textContent = endTime;
+        }
+
+        // Función para calcular y mostrar el tiempo transcurrido
+        function calculateElapsedTime() {
+            const startTime = document.getElementById("startTime").textContent;
+            const endTime = document.getElementById("endTime").textContent;
+
+            if (startTime && endTime) {
+                const start = new Date(`2023-10-19T${startTime}`);
+                const end = new Date(`2023-10-19T${endTime}`);
+                const elapsedTime = new Date(end - start);
+
+                const hours = elapsedTime.getUTCHours().toString().padStart(2, '0');
+                const minutes = elapsedTime.getUTCMinutes().toString().padStart(2, '0');
+                const seconds = elapsedTime.getUTCSeconds().toString().padStart(2, '0');
+
+                document.getElementById("elapsedTime").textContent = `${hours}:${minutes}:${seconds}`;
+            }
+        }
+
+        // Event listeners para los botones de etiquetas
+        document.getElementById("practiceLabel").addEventListener("click", function () {
+            const label = prompt("Etiqueta de práctica:");
+            if (label !== null) {
+                document.getElementById("practiceLabel").textContent = label;
+            }
+        });
+
+        document.getElementById("appealsLabel").addEventListener("click", function () {
+            const label = prompt("Etiqueta de apelaciones:");
+            if (label !== null) {
+                document.getElementById("appealsLabel").textContent = label;
+            }
+        });
+
+        document.getElementById("goLiveLabel").addEventListener("click", function () {
+            const label = prompt("Etiqueta de GoLive:");
+            if (label !== null) {
+                document.getElementById("goLiveLabel").textContent = label;
+            }
+        });
+
+        // Event listeners para los botones de inicio y finalización
+        document.getElementById("startButton").addEventListener("click", setStartTime);
+        document.getElementById("endButton").addEventListener("click", setEndTime);
+
+        // Event listener para calcular el tiempo transcurrido
+        document.getElementById("calculateButton").addEventListener("click", calculateElapsedTime);
+    </script>
+</body>
+</html>
